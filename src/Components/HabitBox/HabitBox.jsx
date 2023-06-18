@@ -3,9 +3,11 @@ import "./HabitBox.css";
 import { useHabit } from "../../Context/HabitProvider";
 import { BsArchive, BsTrash } from "react-icons/bs";
 import HabitDetailModal from "../HabitDetailModal/HabitDetailModal";
+import { useLocation } from "react-router-dom";
 
 const HabitBox = ({ habit }) => {
   const { handleDelete, handleArchive } = useHabit();
+  const location = useLocation();
 
   const [showModal, setShowModal] = useState(false);
 
@@ -22,11 +24,13 @@ const HabitBox = ({ habit }) => {
             className="icon"
             onClick={() => handleDelete(id)}
           />
-          <BsArchive
-            title="Archive"
-            className="icon"
-            onClick={() => handleArchive(id)}
-          />
+          {location.pathname === "/" && (
+            <BsArchive
+              title="Archive"
+              className="icon"
+              onClick={() => handleArchive(id)}
+            />
+          )}
         </div>
         <h1>{habitName}</h1>
       </div>
