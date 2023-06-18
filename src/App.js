@@ -1,24 +1,26 @@
-import logo from './logo.svg';
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import { useData } from './Context/DataProvider';
+import Header from './Components/Header';
+import Home from './Pages/Home';
+import Favorite from './Pages/Favorite';
+import Profile from './Pages/Profile';
+
 
 function App() {
+  const {loading} = useData();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    {
+      loading &&  <h1>Loading</h1>
+    }
+    <Header/>
+    <Routes>
+      <Route path="/" element={<Home/>}/>
+      <Route path="/favorite" element={<Favorite/>}/>
+      <Route path="/profile" element={<Profile/>}/>
+    </Routes>
+    </>
   );
 }
 
