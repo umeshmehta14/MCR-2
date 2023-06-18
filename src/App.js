@@ -1,26 +1,19 @@
-import { Route, Routes } from 'react-router-dom';
-import './App.css';
-import { useData } from './Context/DataProvider';
-import Header from './Components/Header';
-import Home from './Pages/Home';
-import Favorite from './Pages/Favorite';
-import Profile from './Pages/Profile';
-
+import { Route, Routes } from "react-router-dom";
+import "./App.css";
+import Home from "./Pages/Home/Home";
+import Archive from "./Pages/Archive/Archive";
+import Header from "./Components/Header/Header";
 
 function App() {
-  const {loading} = useData();
   return (
-    <>
-    {
-      loading &&  <h1>Loading</h1>
-    }
-    <Header/>
-    <Routes>
-      <Route path="/" element={<Home/>}/>
-      <Route path="/favorite" element={<Favorite/>}/>
-      <Route path="/profile" element={<Profile/>}/>
-    </Routes>
-    </>
+    <div>
+      <h1 className="main-heading">Habit Tracker</h1>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/archive" element={<Archive />} />
+      </Routes>
+    </div>
   );
 }
 
