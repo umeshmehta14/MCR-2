@@ -30,9 +30,9 @@ export const HabitProvider = ({ children }) => {
     setHabits(archivedHabits);
   };
 
-  const handleEdit = (habitId) => {
+  const handleEdit = (newHabit) => {
     const EditedHabits = habits.map((habit) =>
-      habit.id === habitId ? { ...habit, archive: true } : habit
+      habit.id === newHabit.id ? { ...habit, ...newHabit } : habit
     );
     setHabits(EditedHabits);
   };
@@ -52,6 +52,7 @@ export const HabitProvider = ({ children }) => {
         setHabitEmpty,
         handleDelete,
         handleArchive,
+        handleEdit,
       }}
     >
       {children}

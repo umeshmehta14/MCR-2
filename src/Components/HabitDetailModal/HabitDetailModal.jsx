@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
 import { BiEdit } from "react-icons/bi";
 import { useHabit } from "../../Context/HabitProvider";
+import FormModal from "../FormModal/FormModal";
 
 const HabitDetailModal = ({ showModal, setShowModal, habit }) => {
   const { setHabitDetail } = useHabit();
   const handleModalClose = () => setShowModal(false);
+  const [show, setShow] = useState(false);
+  const handleShow = () => setShow(true);
 
   const { habitName, repeat, timeOfDay, startDay, goal } = habit;
 
@@ -26,7 +29,7 @@ const HabitDetailModal = ({ showModal, setShowModal, habit }) => {
             <strong>Start Day:</strong> {startDay}
           </p>
           <p>
-            <strong>Goal:</strong> {goal}
+            <strong>Goal:</strong> {goal} Time Daily
           </p>
         </Modal.Body>
         <Modal.Footer>
@@ -34,11 +37,20 @@ const HabitDetailModal = ({ showModal, setShowModal, habit }) => {
             <BiEdit
               title="Edit"
               className="edit-icon"
-              onClick={() => setHabitDetail({ ...habit })}
+              onClick={() => {
+                setHabitDetail({ ...habit });
+                setShow(!show);
+              }}
             />
           </div>
         </Modal.Footer>
       </Modal>
+      <FormModal
+        show={show}
+        handleShow={handleShow}
+        setShow={setShow}
+        edit={true}
+      />
     </>
   );
 };

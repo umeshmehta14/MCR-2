@@ -3,18 +3,27 @@ import "./HabitForm.css";
 import { useHabit } from "../../Context/HabitProvider";
 import { Button, Modal } from "react-bootstrap";
 
-const HabitForm = ({ handleClose }) => {
-  const { habitDetail, setHabitDetail, handleNewHabit, setHabitEmpty } =
-    useHabit();
+const HabitForm = ({ handleClose, edit }) => {
+  const {
+    habitDetail,
+    setHabitDetail,
+    handleNewHabit,
+    handleEdit,
+    setHabitEmpty,
+  } = useHabit();
 
-  const { habitName, repeat, timeOfDay, startDay, goal } = habitDetail;
+  const { id, habitName, repeat, timeOfDay, startDay, goal } = habitDetail;
 
   const repeatData = ["Daily", "Weekly", "Monthly"];
   const timeOfDayData = ["Any Time", "Morning", "Evening", "Night"];
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleNewHabit(habitDetail);
+    if (edit) {
+      handleEdit(habitDetail);
+    } else {
+      handleNewHabit(habitDetail);
+    }
     setHabitEmpty();
     handleClose();
   };
@@ -111,7 +120,7 @@ const HabitForm = ({ handleClose }) => {
           Discard
         </Button>
         <Button type="submit" variant="primary">
-          Save
+          {edit ? "Save Changes" : "Save"}
         </Button>
       </Modal.Footer>
     </form>
